@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use  App\Http\Controllers\PostingController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('posting',PostingController::class);
+    Route::get('show-posting',[PostingController::class,'show_posting']);
+    Route::post('posting-like',[PostingController::class,'posting_like']);
+    Route::resource('comment',CommentController::class);
+
+
 });
