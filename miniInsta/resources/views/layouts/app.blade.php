@@ -52,6 +52,71 @@
             $('#file').click();
         });
 
+        edit_status = function (id) {
+            $.ajax({
+                url:'{{ url('posting') }}/'+id+'/edit',
+                dataType:'json',
+                success:function(result){
+                   $('[name="status"]').text(result.status);
+                   $('[name="_method"]').val('put');
+                   $('#form_posting').attr('action','{{ url('posting') }}/'+id);
+                }
+            });
+        }
+
+        edit_comment = function (id) {
+            $.ajax({
+                url:'{{ url('comment') }}/'+id+'/edit',
+                dataType:'json',
+                success:function(result){
+                    $('[name="comment"]').text(result.comment);
+                    $('#comment_method').val('put');
+                    $('#form-comment-update').attr('action','{{ url('comment') }}/'+id);
+                    $('#exampleModal1').modal('show');
+                }
+            });
+        }
+
+        delete_status = function (id) {
+            if(confirm('Apakah anda akan menghapus komentar ini...?')==true) {
+                $.ajax({
+                    url: '{{ url('posting') }}/' + id,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        '_method': 'delete'
+                    },
+                    success: function (result) {
+                        alert(result.message);
+                        window.location.reload();
+                    }
+                });
+            }else{
+                alert('Proses dihentikan')
+            }
+        }
+
+        delete_comment = function (id) {
+           if(confirm('Apakah anda akan menghapus komentar ini...?')==true){
+               $.ajax({
+                   url:'{{ url('comment') }}/'+id,
+                   type:'post',
+                   dataType:'json',
+                   data:{
+                       '_token':'{{ csrf_token() }}',
+                       '_method':'delete'
+                   },
+                   success:function(result){
+                       alert(result.message);
+                       window.location.reload();
+                   }
+               });
+           }else{
+                alert('Proses dihentikan')
+           }
+        }
+
         $(document).ready(function(){
            $.ajax({
                url:'{{ url('show-posting') }}',
@@ -63,6 +128,17 @@
                    });
                }
            });
+
+            $.ajax({
+                url:'{{ url('self-posting') }}',
+                dataType:'json',
+                success:function(result){
+                    $.each(result.data, function(index, val){
+                        var html = "";
+                        $('#self_posting').append(val);
+                    });
+                }
+            });
 
            like = function(id){
                $.ajax({
@@ -93,6 +169,23 @@
                var data = $('#form-comment').serialize();
                $.ajax({
                    url:'{{ url('comment') }}',
+                   type:'post',
+                   data: data,
+                   success: function (result) {
+                       alert(result.message);
+                       window.location.reload();
+                   },
+                   error: function(xhr, success, error){
+                       var err = eval("(" + xhr.responseText + ")");
+                       alert(err.Message);
+                   }
+               })
+            }
+
+            update_comment = function(){
+               var data = $('#form-comment-update').serialize();
+               $.ajax({
+                   url:$('#form-comment-update').attr('action'),
                    type:'post',
                    data: data,
                    success: function (result) {

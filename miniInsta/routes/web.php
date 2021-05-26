@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     Route::resource('posting',PostingController::class);
     Route::get('show-posting',[PostingController::class,'show_posting']);
+    Route::get('self-posting',[PostingController::class,'self_posting']);
     Route::post('posting-like',[PostingController::class,'posting_like']);
     Route::resource('comment',CommentController::class);
 
