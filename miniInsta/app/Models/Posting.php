@@ -18,4 +18,8 @@ class Posting extends Model
     public function linkToMannyComment(){
         return $this->hasMany('App\Models\Comment','id_posting','id');
     }
+
+    public function linkToUser(){
+        return $this->belongsTo('App\Models\User','id_user');
+    }
 }

@@ -8,10 +8,10 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
            <div class="row">
-                <div class="col-md-6">
-                    <h4>Status</h4>
-                    <div class="row">
+                <div class="col-md-12">
+                    <div class="row align-items-center">
                         <div class="col-sm-12">
+                            <div class="col-sm-6 m-auto">
                             <div class="card mt-3">
                                 <div class="card-body">
                                     <form action="{{ url('posting') }}" id='form_posting' method='post'  enctype="multipart/form-data">
@@ -24,26 +24,30 @@
                                                 <input type='file' name="file" id="file">
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <img src="#" style="visibility: hidden" id="img_gambar">
+                                        </div>
                                         <div class="form-group">
                                             <button type='button' class="btn btn-primary float-left" id="btn_img"><i class="fa fa-image"></i> Images </button>
-                                            <button type='submit' class="btn btn-success float-right" id="btn_posting"><i class="fa fa-image"></i> Posting </button>
+                                            <button type='submit' class="btn btn-success float-right" id="btn_posting"><i class="fa fa-submit"></i> Posting </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        {{--<div class="col-sm-12">--}}
+                            {{--<div class="row" id="self_posting" style="height: 600px; overflow-y: scroll">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="col-sm-12">
-                            <div class="row" id="self_posting" style="height: 600px; overflow-y: scroll">
+                            <div class="col-sm-6 m-auto">
+                                <div class="row" id="list_posting">
                             </div>
                         </div>
                     </div>
                 </div>
-               <div class="col-md-6">
-                   <h4>Daftar Publik Status</h4>
-                   <div class="row" id="list_posting" style="height: 600px; overflow-y: scroll">
-                   </div>
-               </div>
+
            </div>
         </div>
         <!-- Modal -->
@@ -65,8 +69,8 @@
                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="push_comment()" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" onclick="push_comment()" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -90,8 +94,8 @@
                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="update_comment()" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" onclick="update_comment()" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>

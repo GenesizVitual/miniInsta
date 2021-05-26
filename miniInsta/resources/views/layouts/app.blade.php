@@ -52,6 +52,10 @@
             $('#file').click();
         });
 
+        $('#file').change(function(){
+            var url = $("#file").val();
+        });
+
         edit_status = function (id) {
             $.ajax({
                 url:'{{ url('posting') }}/'+id+'/edit',
@@ -151,9 +155,9 @@
                    success:function(result){
                        console.log(result);
                        if(result.total_like!=0){
-                          $('#like_count_'+id).text('Sukai '+ result.total_like);
+                          $('.like_count_'+id).text('By '+ result.total_like);
                        }else{
-                           $('#like_count_'+id).text('');
+                           $('.like_count_'+id).text('');
                        }
                    }
                });

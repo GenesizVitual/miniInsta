@@ -129,21 +129,21 @@ class PostingController extends Controller
         //Todo Image
         if(!empty($model->img)){
             $img = ' <div class="form-group">
-                       <img src="'.asset('/img_posting/'.$model->img).'">
+                       <img src="'.asset('/img_posting/'.$model->img).'" class="m-auto" style="width: 300px; height: 400px">
                     </div>';
         }
 
         // Todo  Calculate total like
         if($model->linkToMannyLike->count('id')!=0){
-            $like_count='<a href="#" id="like_count_'.$model->id.'">Sukai '.$model->linkToMannyLike->count('id').' </a>';
+            $like_count='<a href="#" class="like_count_'.$model->id.'" id="like_count_'.$model->id.'"> By '.$model->linkToMannyLike->count('id').' </a>';
         }else{
-            $like_count='<a href="#" id="like_count_'.$model->id.'"></a>';
+            $like_count='<a href="#" class="like_count_'.$model->id.'" id="like_count_'.$model->id.'"></a>';
         }
 
         // Todo Set limit access for posting
         if(auth()->user()->id==$model->id_user){
-            $button_edit ='<button type="button" onclick="edit_status('.$model->id.')" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen"></i></button>';
-            $button_delete='<button type="button" onclick="delete_status('.$model->id.')" class="btn btn-danger btn-sm m-1"><i class="fa fa-eraser"></i></button>';
+            $button_edit ='<a href="#" onclick="edit_status('.$model->id.')" class="m-1" style="font-size:small;"><i class="fa fa-pen"></i></a>';
+            $button_delete='<a href="#" onclick="delete_status('.$model->id.')" class="m-1" style="font-size:small;"><i class="fa fa-eraser"></i></a>';
         }
 
         // Todo Build Component for each Posting
@@ -155,15 +155,15 @@ class PostingController extends Controller
                 $btn_update_coment = '';
 
                 if($item_comment->id_user== auth()->user()->id){
-                    $btn_delete_coment = '<button type="button" onclick="edit_comment('.$item_comment->id.')" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen"></i></button>';
-                    $btn_update_coment = '<button type="button" onclick="delete_comment('.$item_comment->id.')" class="btn btn-danger btn-sm m-1"><i class="fa fa-eraser"></i></button>';
+                    $btn_delete_coment = '<a href="#" onclick="edit_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-pen"></i></button>';
+                    $btn_update_coment = '<a href="#" onclick="delete_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-eraser" ></i></button>';
                 }
 
                 $comment.='<div class="col-md-12 ">
-                              <label >'.$item_comment->linkToUser->name.'</label><br><small style="font-size: x-small;color: gray">'.date('d-m-Y', strtotime($item_comment->created_at)).'</small><br>
-                              <h4>'.$item_comment->comment.'</h4>
-                              '.$btn_delete_coment.''.$btn_update_coment.'
-                              <hr></hr>
+                              <label style="font-weight: bold">'.$item_comment->linkToUser->name.'</label> '.$item_comment->comment.'<br>
+                              <small style="font-size: x-small;color: gray">Tgl:'.date('d-m-Y', strtotime($item_comment->created_at)).'</small>
+                                   '.$btn_delete_coment.$btn_update_coment.' 
+                              <hr>
                            </div>';
             }
         }else{
@@ -179,26 +179,19 @@ class PostingController extends Controller
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <h6>'.$model->status.'</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        '.$button_edit.$button_delete.'
+                                         <button onclick="like('.$model->id.')" class="float-left mr-1"><i class="fa fas fa-thumbs-up"></i> Suka '.$like_count.'</button>                                      
+                                         <button type="button" class="float-left" onclick="comments('.$model->id.')"><i class="fa fas fa-comments"></i> Komentar </button>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <h6><label style="font-weight: bold">'.$model->linkToUser->name.'</label>'.$model->status.' '.$button_edit.$button_delete.'</h6>
+                                    </div>
+                                </div>
+                                '.$comment.'    
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <button onclick="like('.$model->id.')"><i class="fa fas fa-thumbs-up"></i> Suka </button>
-                                '.$like_count.'
-                              </div>
-                              <div class="col-md-6">
-                                <button type="button" onclick="comments('.$model->id.')"><i class="fa fas fa-comments"></i> Komentar </button>
-                              </div>
-                            </div>
-                        </div>                      
-                        '.$comment.'                           
+                        </div>                                        
+                                          
                     </div>
                  </div>';
         return $html;
