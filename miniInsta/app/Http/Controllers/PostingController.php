@@ -155,8 +155,8 @@ class PostingController extends Controller
                 $btn_update_coment = '';
 
                 if($item_comment->id_user== auth()->user()->id){
-                    $btn_delete_coment = '<a href="#" onclick="edit_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-pen"></i></button>';
-                    $btn_update_coment = '<a href="#" onclick="delete_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-eraser" ></i></button>';
+                    $btn_delete_coment = '<a href="#" onclick="edit_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-pen"></i></a>';
+                    $btn_update_coment = '<a href="#" onclick="delete_comment('.$item_comment->id.')" class="m-1" style="font-size: small"><i class="fa fa-eraser" ></i></a>';
                 }
 
                 $comment.='<div class="col-md-12 ">
@@ -172,6 +172,9 @@ class PostingController extends Controller
         //Todo Building in one html
         $html = '<div class="col-md-12">
                     <div class="card mt-3">
+                        <div class="card-header">
+                             <label style="font-weight: bold">'.$model->linkToUser->name.'</label>
+                        </div>
                         <div class="card-body">
                            <div class="row">
                                 <div class="col-md-12">
@@ -185,7 +188,7 @@ class PostingController extends Controller
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <h6><label style="font-weight: bold">'.$model->linkToUser->name.'</label>'.$model->status.' '.$button_edit.$button_delete.'</h6>
+                                        <h6>'.$model->status.' '.$button_edit.$button_delete.'</h6>
                                     </div>
                                 </div>
                                 '.$comment.'    

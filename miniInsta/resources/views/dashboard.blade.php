@@ -55,14 +55,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Komentar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                        <form action="" method="post" id="form-comment">
                            {{ csrf_field() }}
                            <div class="form-group">
-                               <label>Comment</label>
                                <textarea name="comment" class="form-control"></textarea>
                                <input type="hidden" name="id_posting" id="id_posting">
                            </div>
@@ -79,7 +78,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Comment</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Komentar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -87,7 +86,6 @@
                            {{ csrf_field() }}
                            <input type="hidden" name="_method" id="comment_method">
                            <div class="form-group">
-                               <label>Comment</label>
                                <textarea name="comment" class="form-control"></textarea>
                                <input type="hidden" name="id_posting" id="id_posting">
                            </div>
